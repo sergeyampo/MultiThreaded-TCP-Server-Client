@@ -1,0 +1,26 @@
+language: cpp
+os: linux
+
+jobs:
+  include:
+    - os: linux
+      compiler: gcc
+      dist: bionic
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-9
+      env:
+        - MATRIX_EVAL="CC=gcc-9"
+      before_install:
+        - sudo apt-get update
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9
+      install:
+        - sudo apt-get install cmake
+      script:
+        - cd src/scripts
+        - /bin/bash build.sh
+        - /bin/bash start_server.sh &
+        - /bin/bash start_client.sh
