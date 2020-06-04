@@ -12,6 +12,7 @@
 #include <sys/types.h>
 
 #include "pthread.h"
+#include "../lib/thread_pool/thpool.h"
 
 struct FactorialArgs {
   uint64_t begin;
@@ -81,6 +82,9 @@ int main(int argc, char **argv) {
       default: fprintf(stderr, "getopt returned character code 0%o?\n", c);
     }
   }
+
+  struct thpool_ *pool = thpool_init(4);
+  thpool_destroy(pool);
 
   if (port == -1 || tnum == -1) {
     fprintf(stderr, "Using: %s --port 20001 --tnum 4\n", argv[0]);

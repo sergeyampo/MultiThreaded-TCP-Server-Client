@@ -6,5 +6,4 @@ add_executable(server server.c)
 find_package(Threads REQUIRED)
 target_link_libraries(server ${CMAKE_THREAD_LIBS_INIT})
 
-#target_include_directories(server PUBLIC ../lib)
-#target_link_libraries(server nikita_and_sonya_lib)
+target_link_libraries(server thread_pool)
