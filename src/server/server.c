@@ -12,12 +12,26 @@
 #include <sys/types.h>
 
 #include "pthread.h"
-#include "../utils/mult_modulo.h"
+#include "../lib/thread_pool/thpool.h"
+#include "opt_arg.h"
+
 struct FactorialArgs {
   uint64_t begin;
   uint64_t end;
   uint64_t mod;
 };
+uint64_t MultModulo(uint64_t a, uint64_t b, uint64_t mod) {
+    uint64_t result = 0;
+    a = a % mod;
+    while (b > 0) {
+        if (b % 2 == 1)
+            result = (result + a) % mod;
+        a = (a * 2) % mod;
+        b /= 2;
+    }
+
+    return result % mod;
+}
 
 uint64_t Factorial(const struct FactorialArgs *args) {
   uint64_t ans = 1;
@@ -32,42 +46,41 @@ void *ThreadFactorial(void *args) {
   return (void *) (uint64_t *) Factorial(fargs);
 }
 
-int main(int argc, char **argv) {
-  int tnum = -1;
-  int port = -1;
-
-  while (true) {
-    int current_optind = optind ? optind : 1;
-
-    static struct option options[] = {{"port", required_argument, 0, 0},
-                                      {"tnum", required_argument, 0, 0},
-                                      {0, 0, 0, 0}};
-
-    int option_index = 0;
-    int c = getopt_long(argc, argv, "", options, &option_index);
-
-    if (c == -1)
-      break;
-
-    switch (c) {
-      case 0: {
-        switch (option_index) {
-          case 0: port = atoi(optarg);
-            // TODO: your code here
-            break;
-          case 1: tnum = atoi(optarg);
-            // TODO: your code here
-            break;
-          default: printf("Index %d is out of options\n", option_index);
-        }
-      }
-        break;
-
-      case '?': printf("Unknown argument\n");
-        break;
-      default: fprintf(stderr, "getopt returned character code 0%o?\n", c);
-    }
+int check_tnum(int tnum) {
+  if (tnum <= 0) {
+    printf("tnum must be a positive number\n");
+    return 1;
   }
+  return 0;
+}
+
+int check_port(int port) {
+  if (port < 1024) {
+    printf("port lower than 1024 may not be free\n");
+    return 1;
+  }
+  return 0;
+}
+
+int main(int argc, char **argv) {
+  size_t options_amount = 2;
+
+  static struct option options[] = {{"port", required_argument, 0, 0},
+                                    {"tnum", required_argument, 0, 0},
+                                    {0, 0, 0, 0}};
+
+  //Attach callbacks
+  int (*callbacks[options_amount])(int); //Array of callbacks
+  callbacks[0] = check_port;
+  callbacks[1] = check_tnum;
+
+  int *handled_options = handle_options(argc, argv, options, options_amount, callbacks);
+
+  struct thpool_ *pool = thpool_init(4);
+  thpool_destroy(pool);
+
+  int port = handled_options[0];
+  int tnum = handled_options[1];
 
   if (port == -1 || tnum == -1) {
     fprintf(stderr, "Using: %s --port 20001 --tnum 4\n", argv[0]);
