@@ -13,5 +13,5 @@ All built files will be written an ./src/build folder.
 ```bash
 cd ./src/scripts
 ./start_server.sh &
-./start_client
+./start_client.sh
 ```

@@ -128,13 +128,11 @@ int main(int argc, char** argv) {
 
 	// TODO: for one server
 	// parallel between servers
-	uint64_t begin = 1;
-	uint64_t end = k;
+	// uint64_t begin = 1;
+	uint64_t factorial = k;
 
-	char task[sizeof(uint64_t) * 3];
-	memcpy(task, &begin, sizeof(uint64_t));
-	memcpy(task + sizeof(uint64_t), &end, sizeof(uint64_t));
-	memcpy(task + 2 * sizeof(uint64_t), &mod, sizeof(uint64_t));
+	char task[sizeof(uint64_t)];
+	memcpy(task, &factorial, sizeof(uint64_t));
 
 	if (send(sck, task, sizeof(task), 0) < 0) {
 	  fprintf(stderr, "Send failed\n");
