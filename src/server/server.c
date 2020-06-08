@@ -15,7 +15,6 @@
 #include "../lib/thread_pool/thpool.h"
 #include "opt_arg.h"
 
-
 int check_tnum(int tnum) {
   if (tnum <= 0) {
 	printf("tnum must be a positive number\n");
@@ -138,6 +137,7 @@ int main(int argc, char** argv) {
 	  fprintf(stderr, "Could not establish new connection\n");
 	  continue;
 	}
+    
 	thpool_add_work(thpool, (void*)socket_thread, &client_fd);
   }
   thpool_destroy(thpool);
