@@ -32,9 +32,9 @@ int check_port(int port) {
 }
 
 uint64_t factorial(const uint64_t* n) {
-  int64_t factorial = 1;
-  int64_t r = *n;
-  for (int i = 2; i <= r; ++i)
+  uint64_t factorial = 1;
+  uint64_t r = *n;
+  for (uint64_t i = 2; i <= r; ++i)
 	factorial *= i;
   return factorial;
 }
