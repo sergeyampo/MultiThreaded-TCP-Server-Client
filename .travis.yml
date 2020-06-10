@@ -5,7 +5,7 @@ jobs:
   include:
     - os: linux
       compiler: gcc
-      dist: bionic
+      dist: xenial
       addons:
         apt:
           sources:
