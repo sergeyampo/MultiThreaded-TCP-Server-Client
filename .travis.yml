@@ -5,11 +5,7 @@ jobs:
   include:
     - os: linux
       compiler: gcc
-      dist: xenial
-      addons:
-        apt:
-          packages:
-            - gcc-9
+      dist: bionic
       env:
         - MATRIX_EVAL="CC=gcc-9"
       before_install:
@@ -17,6 +13,7 @@ jobs:
         - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9
       install:
         - sudo apt-get install cmake
+        - sudo apt-get -y install gcc-9
       script:
         - cd src/scripts
         - /bin/bash build.sh
