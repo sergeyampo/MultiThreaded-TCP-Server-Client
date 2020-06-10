@@ -12,7 +12,6 @@ jobs:
         - sudo apt-get update
       install:
         - sudo apt-get install cmake
-        - sudo apt-get install gcc-9
       script:
         - cd src/scripts
         - /bin/bash build.sh
