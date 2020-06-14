@@ -2,19 +2,13 @@
 // Created by sergeyampo on 06.06.2020.
 //
 #include <stdio.h>
+#include <string.h>
 #include <getopt.h>
 #include <stdlib.h>
 #include "opt_arg.h"
 #include "extract_ip_port_from_string.h"
+#include "../../lib/check_port.h"
 
-
-int check_port(int port) {
-  if (port < 1024) {
-	printf("port lower than 1024 may not be free\n");
-	return 1;
-  }
-  return 0;
-}
 
 int handle_options(int argc,
 				   char** argv,
@@ -43,7 +37,7 @@ int handle_options(int argc,
 			break;
 		  case 1: memcpy(server, optarg, strlen(optarg));
 			extract_ip_port_from_string(server, ':', ip_port);
-			if (check_port(ip_port->port))
+			if (check_port(&ip_port->port))
 			  return 1;
 			break;
 		  default:printf("Index %d is out of options\n", option_index);

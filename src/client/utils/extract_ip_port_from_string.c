@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "extract_ip_port_from_string.h"
-#include "opt_arg.h"
+#include "utils/extract_ip_port_from_string.h"
+#include "utils/opt_arg.h"
 
 
 unsigned int convert(char* st) {

@@ -8,6 +8,6 @@
 #ifndef TCPSERVERCLIENT_SRC_SERVER_OPT_ARG_H_
 #define TCPSERVERCLIENT_SRC_SERVER_OPT_ARG_H_
 
-int* handle_options(int, char**, struct option[], const int, int (* [])(int));
+int* handle_options(int, char**, struct option[], const int, int (* [])(unsigned int*));
 
 #endif //TCPSERVERCLIENT_SRC_SERVER_OPT_ARG_H_
