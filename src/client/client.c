@@ -22,11 +22,9 @@ int main(int argc, char** argv) {
   static struct option options[] = {{"factorial", required_argument, 0, 0},
 									{"server", required_argument, 0, 0},
 									{0, 0, 0, 0}};
-  printf("afrt sockaddr");
   if (handle_options(argc, argv, options, 2, &factorial, &ip_port)) {
 	return 1;
   }
-  printf("afrt sockaddr");
   if (factorial == -1 || !strlen(ip_port.ip)) {
 	fprintf(stderr, "Using: %s --factorial n --server 127.0.0.1:20001\n",
 			argv[0]);
@@ -42,7 +40,6 @@ int main(int argc, char** argv) {
   struct sockaddr_in server;
   set_sockaddr_in(&server, AF_INET, ip_port.port,
   	*((unsigned long*)hostname->h_addr));
-  printf("afrt sockaddr");
   int sck = socket(AF_INET, SOCK_STREAM, 0);
   if (sck < 0) {
 	fprintf(stderr, "Socket creation failed!\n");

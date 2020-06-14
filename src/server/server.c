@@ -24,7 +24,6 @@ void* socket_thread(void* arg) {
   printf("Into thread  %d\n", (int)pthread_self());
   int newSocket = *((int*)arg);
   while (true) {
-	//TODO: make variable for count of parameters
 	unsigned int buffer_size = sizeof(uint64_t);
 	char from_client[buffer_size];
 	int read = recv(newSocket, from_client, buffer_size, 0);
