@@ -8,13 +8,13 @@
 #include "../../lib/check_port.h"
 
 
-int* handle_options(int argc,
-					char** argv,
-					struct option options[],
-					const int options_amount,
-					int (* check_callbacks[])(unsigned int*)
+unsigned int* handle_options(int argc,
+							 char** argv,
+							 struct option options[],
+							 const int options_amount,
+							 int (* check_callbacks[])(unsigned int*)
 ) {
-  unsigned int* output_options = (unsigned int*)malloc(sizeof(unsigned int) * options_amount);
+  unsigned int* output_options = (unsigned int*)malloc(sizeof(unsigned) * options_amount);
   for (size_t i = 0; i < options_amount; ++i)
 	output_options[i] = -1;
 

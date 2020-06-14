@@ -71,8 +71,8 @@ int main(int argc, char** argv) {
   unsigned tnum = handled_options[1];
   threadpool thpool = thpool_init(tnum);
 
-  if (port == -1) {
-	fprintf(stderr, "Using: %s --port 20001 \n", argv[0]);
+  if (port == -1 || tnum == -1) {
+	fprintf(stderr, "Using: %s --port 20001 --tnum 4\n", argv[0]);
 	return 1;
   }
 
@@ -84,7 +84,6 @@ int main(int argc, char** argv) {
 
   struct sockaddr_in server;
   set_sockaddr_in(&server, AF_INET, port, INADDR_ANY);
-
   int opt_val = 1;
   setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt_val, sizeof(opt_val));
 
