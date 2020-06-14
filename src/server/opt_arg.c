@@ -11,9 +11,9 @@ int* handle_options(int argc,
 					char** argv,
 					struct option options[],
 					const int options_amount,
-					int (* check_callbacks[])(int)
+					int (* check_callbacks[])(unsigned int*)
 ) {
-  int* output_options = (int*)malloc(sizeof(int) * options_amount);
+  unsigned int* output_options = (unsigned int*)malloc(sizeof(unsigned) * options_amount);
   for (size_t i = 0; i < options_amount; ++i)
 	output_options[i] = -1;
 
@@ -30,11 +30,11 @@ int* handle_options(int argc,
 	  case 0: {
 		switch (option_index) {
 		  case 0:*output_options = atoi(optarg);
-			if ((*check_callbacks[0])(*output_options))
+			if ((*check_callbacks[0])(output_options))
 			  return 1;
 			break;
 		  case 1:output_options[1] = atoi(optarg);
-			if ((*check_callbacks[1])(output_options[1]))
+			if ((*check_callbacks[1])(output_options + 1))
 			  return 1;
 			break;
 		  default:printf("Index %d is out of options\n", option_index);

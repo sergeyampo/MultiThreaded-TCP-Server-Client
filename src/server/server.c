@@ -15,16 +15,16 @@
 #include "../lib/thread_pool/thpool.h"
 #include "opt_arg.h"
 
-int check_tnum(int tnum) {
-  if (tnum <= 0) {
+int check_tnum(unsigned int* tnum) {
+  if (*tnum <= 0) {
 	printf("tnum must be a positive number\n");
 	return 1;
   }
   return 0;
 }
 
-int check_port(int port) {
-  if (port < 1024) {
+int check_port(unsigned int* port) {
+  if (*port < 1024) {
 	printf("port lower than 1024 may not be free\n");
 	return 1;
   }
@@ -84,16 +84,16 @@ int main(int argc, char** argv) {
 									{0, 0, 0, 0}};
 
   //Attach callbacks
-  int (* callbacks[options_amount])(int); //Array of callbacks
+  int (* callbacks[options_amount])(unsigned int*); //Array of callbacks
   callbacks[0] = check_port;
   callbacks[1] = check_tnum;
 
-  int* handled_options = handle_options(argc, argv, options, options_amount, callbacks);
+  unsigned int* handled_options = handle_options(argc, argv, options, options_amount, callbacks);
 
   threadpool thpool = thpool_init(4);
 
-  int port = handled_options[0];
-  int tnum = handled_options[1];
+  unsigned port = handled_options[0];
+  unsigned tnum = handled_options[1];
 
   if (port == -1 || tnum == -1) {
 	fprintf(stderr, "Using: %s --port 20001 --tnum 4\n", argv[0]);
@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
 
   struct sockaddr_in server;
   server.sin_family = AF_INET;
-  server.sin_port = htons((uint16_t)port);
+  server.sin_port = htons(port);
   server.sin_addr.s_addr = htonl(INADDR_ANY);
 
   int opt_val = 1;
