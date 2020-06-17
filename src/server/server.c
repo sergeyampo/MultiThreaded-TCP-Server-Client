@@ -16,11 +16,11 @@
 #include "../lib/check_port.h"
 #include "utils/opt_arg.h"
 #include "utils/factorial.h"
-#include "utils/check_tnum.h"
 #include "../lib/set_sockaddr_in.h"
 
 
 void* socket_thread(void* arg) {
+
   printf("Into thread  %d\n", (int)pthread_self());
   int newSocket = *((int*)arg);
   while (true) {
@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
 	  fprintf(stderr, "Could not establish new connection\n");
 	  continue;
 	}
-
+	printf("Num of active threads worker  %d\n", thpool_num_threads_working(thpool));
 	thpool_add_work(thpool, (void*)socket_thread, &client_fd);
   }
   thpool_destroy(thpool);

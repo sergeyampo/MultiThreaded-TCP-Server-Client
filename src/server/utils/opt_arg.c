@@ -5,8 +5,15 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include "opt_arg.h"
-#include "../../lib/check_port.h"
 
+
+int check_tnum(unsigned int* tnum) {
+  if (*tnum <= 0) {
+	printf("tnum must be a positive number\n");
+	return 1;
+  }
+  return 0;
+}
 
 unsigned int* handle_options(int argc,
 							 char** argv,

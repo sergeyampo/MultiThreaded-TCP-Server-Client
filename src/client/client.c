@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
 
   struct sockaddr_in server;
   set_sockaddr_in(&server, AF_INET, ip_port.port,
-  	*((unsigned long*)hostname->h_addr));
+				  *((unsigned long*)hostname->h_addr));
   int sck = socket(AF_INET, SOCK_STREAM, 0);
   if (sck < 0) {
 	fprintf(stderr, "Socket creation failed!\n");
@@ -50,7 +50,6 @@ int main(int argc, char** argv) {
 	fprintf(stderr, "Connection failed\n");
 	exit(1);
   }
-
   char task[sizeof(uint64_t)];
   memcpy(task, &factorial, sizeof(uint64_t));
 

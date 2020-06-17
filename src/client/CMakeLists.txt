@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 project(TCPServerClient LANGUAGES C)
 
-add_executable(client client.c utils/extract_ip_port_from_string.c utils/opt_arg.c ../lib/check_port.h ../lib/check_port.c ../lib/set_sockaddr_in.h ../lib/set_sockaddr_in.c ../lib/set_sockaddr_in.c)
+add_executable(client client.c utils/extract_ip_port_from_string.c utils/opt_arg.c  ../lib/check_port.c  ../lib/set_sockaddr_in.c)
 
 target_include_directories(client PUBLIC ./)
 
