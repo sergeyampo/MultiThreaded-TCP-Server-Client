@@ -7,6 +7,14 @@
 #include "opt_arg.h"
 
 
+int check_tnum(unsigned int* tnum) {
+  if (*tnum <= 0) {
+	printf("tnum must be a positive number\n");
+	return 1;
+  }
+  return 0;
+}
+
 unsigned int* handle_options(int argc,
 							 char** argv,
 							 struct option options[],

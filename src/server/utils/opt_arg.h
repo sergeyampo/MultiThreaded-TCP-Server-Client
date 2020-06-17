@@ -10,4 +10,6 @@
 
 unsigned int* handle_options(int, char**, struct option[], const int, int (* [])(unsigned int*));
 
+int check_tnum(unsigned int* tnum);
+
 #endif //TCPSERVERCLIENT_SRC_SERVER_OPT_ARG_H_
